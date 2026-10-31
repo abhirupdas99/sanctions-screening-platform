@@ -1,0 +1,4 @@
+pyspark==3.5.3
+delta-spark==3.2.1
+oracledb==3.4.2
+python-dotenv==1.2.4
