@@ -7,7 +7,7 @@ export
 PY      := .venv/bin/python
 SYS_SQL  = docker exec -i -w /work $(ORACLE_CONTAINER) sqlplus -s -l system/$(ORACLE_SYSTEM_PASSWORD)@//localhost:1521/FREEPDB1
 
-.PHONY: help db-up db-wait db-start db-stop db-init ctl check sqlplus list generate check-p2 ingest ingest-all show-ctl check-p3 reset-p3
+.PHONY: help db-up db-wait db-start db-stop db-init ctl check sqlplus list generate check-p2 ingest ingest-all show-ctl check-p3 reset-p3 silver silver-all check-p4 reset-p4
 
 help:
 > @echo "make db-up | db-start | db-stop | db-init | ctl | check | sqlplus"
@@ -77,3 +77,15 @@ reset-p3:         ## start Phase 3 again: regenerate files, empty bronze and ctl
 > @rm -rf lakehouse/bronze lakehouse/ctl
 > @find data/archive data/quarantine -mindepth 1 -not -name .gitkeep -exec rm -rf {} +
 > @$(MAKE) --no-print-directory ctl generate
+
+silver:           ## Phase 4: one business date (make silver DATE=2026-10-02); earlier days first
+> @$(PY) -m src.jobs.build_silver --date $(DATE)
+
+silver-all:       ## Phase 4: every business date in bronze, oldest first
+> @$(PY) -m src.jobs.build_silver --all
+
+check-p4:         ## prove Phase 4 is done
+> @$(PY) -m src.checks.check_phase4
+
+reset-p4:         ## rebuild Phase 4 from bronze: drop silver, gold and the outbound files
+> @rm -rf lakehouse/silver lakehouse/gold data/outbound
