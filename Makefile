@@ -44,3 +44,17 @@ check:            ## prove Phase 1 is done
 
 sqlplus:          ## interactive SQL*Plus as SYSTEM
 > @docker exec -it -w /work $(ORACLE_CONTAINER) sqlplus system/$(ORACLE_SYSTEM_PASSWORD)@//localhost:1521/FREEPDB1
+
+LIST_URL := https://www.international.gc.ca/world-monde/assets/office_docs/international_relations-relations_internationales/sanctions/sema-lmes.xml
+
+list:             ## download the real Canadian sanctions list
+> @mkdir -p data/reference
+> @curl -fsSL -o data/reference/sema-lmes.xml "$(LIST_URL)"
+> @echo "Downloaded: $$(grep -o '<record>' data/reference/sema-lmes.xml | wc -l) records"
+> @sha256sum data/reference/sema-lmes.xml
+
+generate:         ## Phase 2: synthetic files + answer key
+> @$(PY) -m src.generator.generate_data
+
+check-p2:         ## prove Phase 2 is done
+> @$(PY) -m src.checks.check_phase2
