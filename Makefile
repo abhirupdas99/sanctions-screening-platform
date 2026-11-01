@@ -7,7 +7,7 @@ export
 PY      := .venv/bin/python
 SYS_SQL  = docker exec -i -w /work $(ORACLE_CONTAINER) sqlplus -s -l system/$(ORACLE_SYSTEM_PASSWORD)@//localhost:1521/FREEPDB1
 
-.PHONY: help db-up db-wait db-start db-stop db-init ctl check sqlplus
+.PHONY: help db-up db-wait db-start db-stop db-init ctl check sqlplus list generate check-p2 ingest ingest-all show-ctl check-p3 reset-p3
 
 help:
 > @echo "make db-up | db-start | db-stop | db-init | ctl | check | sqlplus"
@@ -58,3 +58,22 @@ generate:         ## Phase 2: synthetic files + answer key
 
 check-p2:         ## prove Phase 2 is done
 > @$(PY) -m src.checks.check_phase2
+
+DATE ?= 2026-10-01
+
+ingest:           ## Phase 3: one business date (make ingest DATE=2026-10-02)
+> @$(PY) -m src.jobs.ingest_day --date $(DATE)
+
+ingest-all:       ## Phase 3: every day folder in landing, oldest first
+> @$(PY) -m src.jobs.ingest_day --all
+
+show-ctl:         ## print the file manifest and run log
+> @$(PY) -m src.checks.show_ctl
+
+check-p3:         ## prove Phase 3 is done
+> @$(PY) -m src.checks.check_phase3
+
+reset-p3:         ## start Phase 3 again: regenerate files, empty bronze and ctl
+> @rm -rf lakehouse/bronze lakehouse/ctl
+> @find data/archive data/quarantine -mindepth 1 -not -name .gitkeep -exec rm -rf {} +
+> @$(MAKE) --no-print-directory ctl generate
