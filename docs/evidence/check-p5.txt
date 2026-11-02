@@ -30,8 +30,8 @@ Re-running Firco for every day first: an idempotent engine must change nothing..
 2026-11-09  SCR-20261109  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
 2026-11-10  SCR-20261110  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
 2026-11-11  SCR-20261111  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
-2026-11-11  X-20261111-012007  audit events: 0 new (watermark 100280), Oracle 184 = bronze 184
-2026-11-11  X-20261111-012031  audit events: 0 new (watermark 100280), Oracle 184 = bronze 184
+2026-11-11  X-20261111-044908  audit events: 0 new (watermark 100280), Oracle 184 = bronze 184
+2026-11-11  X-20261111-044934  audit events: 0 new (watermark 100280), Oracle 184 = bronze 184
 PASS  every_batch_loaded_once        30 batches loaded through the checksum gate, row counts match the files
 PASS  firco_rerun_changes_nothing    re-running all 30 days added no alerts or audit events (184 events)
 PASS  list_versions                  v1 5706 entries, v2 5708: 2 newly listed
