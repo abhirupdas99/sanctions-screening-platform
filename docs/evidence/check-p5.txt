@@ -1,0 +1,46 @@
+:: loading settings :: url = jar:file:/home/das6a/screening-platform/.venv/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Re-running Firco for every day first: an idempotent engine must change nothing...
+2026-10-01  SCR-20261001  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-02  SCR-20261002  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-05  SCR-20261005  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-06  SCR-20261006  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-07  SCR-20261007  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-08  SCR-20261008  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-09  SCR-20261009  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-12  SCR-20261012  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-13  SCR-20261013  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-14  SCR-20261014  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-15  SCR-20261015  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-16  SCR-20261016  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-19  SCR-20261019  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-20  SCR-20261020  list=v1  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-21  SCR-20261021  list=v2 (new)  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-22  SCR-20261022  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-23  SCR-20261023  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-26  SCR-20261026  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-27  SCR-20261027  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-28  SCR-20261028  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-29  SCR-20261029  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-10-30  SCR-20261030  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-02  SCR-20261102  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-03  SCR-20261103  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-04  SCR-20261104  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-05  SCR-20261105  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-06  SCR-20261106  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-09  SCR-20261109  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-10  SCR-20261110  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-11  SCR-20261111  list=v2  alerts=0 rescreen_alerts=0  L1 cleared=0 escalated=0  L2 confirmed=0
+2026-11-11  X-20261111-012007  audit events: 0 new (watermark 100280), Oracle 184 = bronze 184
+2026-11-11  X-20261111-012031  audit events: 0 new (watermark 100280), Oracle 184 = bronze 184
+PASS  every_batch_loaded_once        30 batches loaded through the checksum gate, row counts match the files
+PASS  firco_rerun_changes_nothing    re-running all 30 days added no alerts or audit events (184 events)
+PASS  list_versions                  v1 5706 entries, v2 5708: 2 newly listed
+PASS  true_matches_confirmed         all 5 true matches confirmed (A, B, C, D, E); D and E by the list-change rescreen on 2026-10-21
+PASS  near_misses_never_confirmed    3 of 3 near misses alerted and cleared; 77 false positives cleared in total
+PASS  four_eyes_on_every_match       6 confirmations, each by a different person from Level 1; inactive users never acted
+PASS  audit_trail_consistent         184 events, unique IDs; every CLOSED alert has a final decision (0 still in review)
+PASS  extract_back_reconciles        Oracle 184 = bronze 184; a repeat extract added nothing (watermark)
+PASS  task2_report_matches_oracle    gold.alert_activity_monthly = the Task 2 query on Oracle (8 rows)
+PASS  task5_flags_planted_findings   inactive access, admin+analyst conflict, no mapping, unnamed profile, and the renamed profile all reported
+
+10/10 checks passed
