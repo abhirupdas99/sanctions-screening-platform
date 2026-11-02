@@ -3,3 +3,4 @@ delta-spark==3.2.1
 oracledb==3.4.2
 python-dotenv==1.2.4
 faker==40.44.0
+rapidfuzz==3.14.6
